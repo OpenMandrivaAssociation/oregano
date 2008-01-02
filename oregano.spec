@@ -29,6 +29,7 @@ Requires(postun):	desktop-file-utils
 
 Source: 	https://gforge.lug.fi.uba.ar/frs/download.php/62/%{name}-%{version}.tar.gz
 URL:		http://oregano.gforge.lug.fi.uba.ar/index.php	
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Oregano is an application for schematic capture and simulation of
