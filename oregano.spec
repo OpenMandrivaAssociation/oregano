@@ -1,11 +1,10 @@
 %define	name	oregano
 %define	version	0.69.0
-%define	release	%mkrel 1
 
 Summary:	A GUI to simulate electronic circuit
 Name: 		%{name}
 Version: 	%{version}
-Release: 	%{release}
+Release: 	%mkrel 2
 License: 	GPLv2+
 Group: 		Graphics
 
