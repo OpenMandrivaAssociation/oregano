@@ -56,14 +56,18 @@ perl -pi -e 's,gnome-oregano.svg,gnome-oregano,g' %{buildroot}%{_datadir}/applic
 rm -rf $RPM_BUILD_ROOT/%_datadir/mime/{XMLnamespaces,globs,magic,aliases,subclasses}
 rm -rf $RPM_BUILD_ROOT/var
 
+%if %mdkversion < 200900
 %post
 %update_menus
 %{update_desktop_database}
+%endif
 
 
+%if %mdkversion < 200900
 %postun
 %clean_menus
 %{clean_desktop_database}
+%endif
 
 
 %clean
