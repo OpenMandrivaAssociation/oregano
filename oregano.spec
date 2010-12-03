@@ -4,7 +4,7 @@
 Summary:	A GUI to simulate electronic circuit
 Name: 		%{name}
 Version: 	%{version}
-Release: 	%mkrel 4
+Release: 	%mkrel 5
 License: 	GPLv2+
 Group: 		Graphics
 
