@@ -44,17 +44,17 @@ perl -pi -e 's/update-mime-database/true/g' SConstruct
 scons PREFIX=%{_prefix}/
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT
-scons  DESTDIR=$RPM_BUILD_ROOT/ PREFIX=%{_prefix}/  install 
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+scons  DESTDIR=%{buildroot}/ PREFIX=%{_prefix}/  install 
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps
 mv %{buildroot}%{_datadir}/pixmaps/gnome-oregano.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/gnome-oregano.svg
 perl -pi -e 's,gnome-oregano.svg,gnome-oregano,g' %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %{find_lang} %{name}
 
-rm -rf $RPM_BUILD_ROOT/%_datadir/mime/{XMLnamespaces,globs,magic,aliases,subclasses}
-rm -rf $RPM_BUILD_ROOT/var
+rm -rf %{buildroot}/%_datadir/mime/{XMLnamespaces,globs,magic,aliases,subclasses}
+rm -rf %{buildroot}/var
 
 %if %mdkversion < 200900
 %post
@@ -71,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT/var
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -f %{name}.lang
 %defattr(-, root, root)
