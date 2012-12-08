@@ -1,0 +1,13 @@
+diff -urN oregano-0.70/src/Makefile.am oregano-0.70-patched/src/Makefile.am
+--- oregano-0.70/src/Makefile.am	2011-12-31 17:39:23.000000000 +1100
++++ oregano-0.70-patched/src/Makefile.am	2012-09-17 23:14:28.755992305 +1100
+@@ -32,7 +32,8 @@
+ OREGANO_LIBS += gplot/libgplot.a \
+ 		engines/libengines.a \
+ 		model/libmodel.a \
+-		sheet/libsheet.a
++		sheet/libsheet.a \
++		-lcairo -lpango-1.0 -lm
+ 
+ oregano_PIXMAPS = \
+ 	plot.xpm 	\

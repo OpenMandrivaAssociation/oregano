@@ -1,0 +1,30 @@
+diff -urN oregano-0.70/src/dialogs.c oregano-0.70-patched/src/dialogs.c
+--- oregano-0.70/src/dialogs.c	2011-12-31 17:39:23.000000000 +1100
++++ oregano-0.70-patched/src/dialogs.c	2012-09-17 22:41:44.344847395 +1100
+@@ -61,7 +61,7 @@
+ 		GTK_DIALOG_MODAL,
+ 		GTK_MESSAGE_ERROR,
+ 		GTK_BUTTONS_OK,
+-		span_msg->str);
++		"%s", span_msg->str);
+ 
+ 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+ 
+@@ -100,7 +100,7 @@
+ 		GTK_DIALOG_MODAL,
+ 		GTK_MESSAGE_WARNING,
+ 		GTK_BUTTONS_OK,
+-		span_msg->str);
++		"%s", span_msg->str);
+ 
+ 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+ 
+@@ -120,7 +120,7 @@
+ 		GTK_MESSAGE_QUESTION,
+ 		GTK_BUTTONS_OK,
+ 		GTK_BUTTONS_CANCEL,
+-		msg);
++		"%s", msg);
+ 
+ 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CANCEL);
+ 

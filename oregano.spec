@@ -1,34 +1,29 @@
-%define	name	oregano
-%define	version	0.69.0
-
 Summary:	A GUI to simulate electronic circuit
-Name: 		%{name}
-Version: 	%{version}
-Release: 	%mkrel 7
-License: 	GPLv2+
-Group: 		Graphics
+Name:		oregano
+Version:	0.70
+Release:	1
+License:	GPLv2+
+Group:		Graphics
+URL:		https://github.com/marc-lorber/oregano
+Source:		%{name}-%{version}.tar.gz
+Patch0:		oregano-0.70-sfmt.patch
+Patch1:		oregano-0.70-linkage.patch
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(libglade-2.0)
+BuildRequires:	pkgconfig(libgnomeui-2.0)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(libgnomecanvas-2.0)
+BuildRequires:	pkgconfig(gtksourceview-2.0)
+BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(libgnomeprintui-2.2)
+BuildRequires:	pkgconfig(xpm)
 
-BuildRequires:	freetype2-devel
 BuildRequires:	gettext
-BuildRequires:	libcairo-devel
-BuildRequires:	libglade2.0-devel
-BuildRequires:	gnomeui2-devel
-BuildRequires:	libgnomeprintui-devel
-BuildRequires:	gtksourceview1-devel
+BuildRequires:	intltool
 BuildRequires:	perl-XML-Parser
 BuildRequires:	scrollkeeper
-BuildRequires:	texinfo
-BuildRequires:	xpm-devel
 BuildRequires:	gnome-common
-BuildRequires:  scons
-
-Requires(post):		desktop-file-utils
-Requires(postun):	desktop-file-utils
-
-
-Source: 	https://gforge.lug.fi.uba.ar/frs/download.php/62/%{name}-%{version}.tar.gz
-URL:		http://oregano.gforge.lug.fi.uba.ar/index.php	
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Oregano is an application for schematic capture and simulation of
@@ -38,48 +33,46 @@ circuit simulation.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
-perl -pi -e 's/update-mime-database/true/g' SConstruct
-scons PREFIX=%{_prefix}/
+./autogen.sh
+%configure2_5x
+%make
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}
-scons  DESTDIR=%{buildroot}/ PREFIX=%{_prefix}/  install 
+%makeinstall_std
+
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps
-mv %{buildroot}%{_datadir}/pixmaps/gnome-oregano.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/gnome-oregano.svg
+cp data/mime/gnome-oregano.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/gnome-oregano.svg
 perl -pi -e 's,gnome-oregano.svg,gnome-oregano,g' %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%{find_lang} %{name}
+rm -rf %{buildroot}%{_datadir}/mime/{XMLnamespaces,generic-icons,globs,globs2,icons,magic,mime.cache,treemagic,types,aliases,subclasses}
+rm -rf %{buildroot}%{_datadir}/mime/application/*.xml
 
-rm -rf %{buildroot}/%_datadir/mime/{XMLnamespaces,globs,magic,aliases,subclasses}
-rm -rf %{buildroot}/var
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%{update_desktop_database}
-%endif
-
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%{clean_desktop_database}
-%endif
-
-
-%clean
-rm -rf %{buildroot}
+%find_lang %{name} --with-gnome
 
 %files -f %{name}.lang
-%defattr(-, root, root)
-%doc AUTHORS 
+%doc AUTHORS
 %{_bindir}/*
-%{_datadir}/mime-info/*
 %{_datadir}/oregano
 %{_datadir}/applications/*
 %{_iconsdir}/hicolor/scalable/apps/gnome-oregano.svg
 %{_datadir}/mime/packages/*.xml
 
+
+%changelog
+* Mon Sep  17 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru>
++ Commit: 968bb84
+- Add patch to fix format is not a string literal build error
+  
+* Mon Sep  17 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru>
++ Commit: f972330
+- Add intltool to BuildRequires
+  
+* Mon Sep  17 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru>
++ Commit: 6ea9c4e
+- New version 0.70, convert BR to pkgconfig style, no longer uses scons
+  
+  
