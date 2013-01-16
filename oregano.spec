@@ -8,6 +8,7 @@ URL:		https://github.com/marc-lorber/oregano
 Source:		%{name}-%{version}.tar.gz
 Patch0:		oregano-0.70-sfmt.patch
 Patch1:		oregano-0.70-linkage.patch
+Patch2:		oregano-automake-1.13.patch
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	pkgconfig(libgnomeui-2.0)
@@ -33,8 +34,7 @@ circuit simulation.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%apply_patches
 
 %build
 ./autogen.sh

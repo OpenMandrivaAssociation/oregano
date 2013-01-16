@@ -1,0 +1,13 @@
+--- oregano-0.70/configure.in.bero	2013-01-16 01:54:40.956829619 +0100
++++ oregano-0.70/configure.in	2013-01-16 01:54:55.803658855 +0100
+@@ -1,7 +1,7 @@
+-AC_INIT(AUTHORS)
+-AM_INIT_AUTOMAKE(oregano, 0.70)
++AC_INIT(oregano, 0.70)
++AM_INIT_AUTOMAKE
+ 
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS([config.h])
+ AM_MAINTAINER_MODE
+ 
+ GETTEXT_PACKAGE=oregano
