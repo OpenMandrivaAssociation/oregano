@@ -1,2 +1,4 @@
+removed_sources:
+  oregano-0.70.tar.gz: 52c8f5c16459f9d6df268e2cf3f1e745a71dba85
 sources:
-  "oregano-0.70.tar.gz": 52c8f5c16459f9d6df268e2cf3f1e745a71dba85
+  oregano-0.82.tar.gz: eff8a93359729fd0cef2b0d6c97572a2aff64353
