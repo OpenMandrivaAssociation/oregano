@@ -1,30 +1,25 @@
 Summary:	A GUI to simulate electronic circuit
 Name:		oregano
-Version:	0.70
-Release:	2
+Version:	0.82
+Release:	1
 License:	GPLv2+
 Group:		Graphics
-URL:		https://github.com/marc-lorber/oregano
-Source:		%{name}-%{version}.tar.gz
+Url:		https://github.com/marc-lorber/oregano
+Source0:	%{name}-%{version}.tar.gz
 Patch0:		oregano-0.70-sfmt.patch
 Patch1:		oregano-0.70-linkage.patch
-Patch2:		oregano-automake-1.13.patch
-BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	pkgconfig(libglade-2.0)
-BuildRequires:	pkgconfig(libgnomeui-2.0)
-BuildRequires:	pkgconfig(libxml-2.0)
-BuildRequires:	pkgconfig(libgnomecanvas-2.0)
-BuildRequires:	pkgconfig(gtksourceview-2.0)
-BuildRequires:	pkgconfig(cairo)
-BuildRequires:	pkgconfig(freetype2)
-BuildRequires:	pkgconfig(libgnomeprintui-2.2)
-BuildRequires:	pkgconfig(xpm)
-
 BuildRequires:	gettext
+BuildRequires:	gnome-common
 BuildRequires:	intltool
 BuildRequires:	perl-XML-Parser
-BuildRequires:	scrollkeeper
-BuildRequires:	gnome-common
+BuildRequires:	rarian
+BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(xpm)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(goocanvas-2.0)
+BuildRequires:  pkgconfig(gtksourceview-3.0)
 
 %description
 Oregano is an application for schematic capture and simulation of
@@ -36,9 +31,15 @@ circuit simulation.
 %setup -q
 %apply_patches
 
+# this is a hack for glib2.0 >= 2.31.0
+sed -i -e 's/-DGTK_DISABLE_DEPRECATED//g' \
+        ./src/Makefile.* \
+        ./src/*/Makefile.*
+
+
 %build
 ./autogen.sh
-%configure2_5x
+%configure2_5x --disable-update-mimedb
 %make
 
 %install
@@ -60,19 +61,5 @@ rm -rf %{buildroot}%{_datadir}/mime/application/*.xml
 %{_datadir}/applications/*
 %{_iconsdir}/hicolor/scalable/apps/gnome-oregano.svg
 %{_datadir}/mime/packages/*.xml
+%{_datadir}/glib-2.0/schemas/apps.oregano.gschema.xml
 
-
-%changelog
-* Mon Sep  17 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru>
-+ Commit: 968bb84
-- Add patch to fix format is not a string literal build error
-  
-* Mon Sep  17 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru>
-+ Commit: f972330
-- Add intltool to BuildRequires
-  
-* Mon Sep  17 2012 Andrey Bondrov <andrey.bondrov@rosalab.ru>
-+ Commit: 6ea9c4e
-- New version 0.70, convert BR to pkgconfig style, no longer uses scons
-  
-  
