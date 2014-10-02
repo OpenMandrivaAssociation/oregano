@@ -1,13 +1,14 @@
 Summary:	A GUI to simulate electronic circuit
 Name:		oregano
 Version:	0.82
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Graphics
 Url:		https://github.com/marc-lorber/oregano
 Source0:	%{name}-%{version}.tar.gz
 Patch0:		oregano-0.70-sfmt.patch
 Patch1:		oregano-0.70-linkage.patch
+Patch2:		oregano-0.82-include.patch
 BuildRequires:	gettext
 BuildRequires:	gnome-common
 BuildRequires:	intltool

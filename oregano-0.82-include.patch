@@ -1,0 +1,10 @@
+--- oregano-0.82/src/netlist-editor.c.orig	2014-10-02 11:01:53.521931962 +0100
++++ oregano-0.82/src/netlist-editor.c	2014-10-02 11:02:11.172101162 +0100
+@@ -31,6 +31,7 @@
+ #include <stdlib.h>
+ #include <glib/gi18n.h>
+ #include <gtksourceview/gtksourcelanguagemanager.h>
++#include <gtksourceview/gtksourcebuffer.h>
+ 
+ #include "netlist-editor.h"
+ #include "netlist-helper.h"
