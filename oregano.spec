@@ -30,7 +30,7 @@ circuit simulation.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 # this is a hack for glib2.0 >= 2.31.0
 sed -i -e 's/-DGTK_DISABLE_DEPRECATED//g' \
